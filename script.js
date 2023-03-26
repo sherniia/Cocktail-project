@@ -6,6 +6,18 @@ const searchBtn = document.getElementsByTagName("button");
 
 const drinksData = data();
 
+
+const modal = document.querySelector('.modal-container');
+
+const modalContent = document.querySelector('.modal-container .content');
+
+function clearModal() {
+  while( modalContent.lastChild) {
+    modalContent.removeChild(modalContent.lastChild)
+  }
+}
+
+
 function showDrinksOnUI(arr) {
   for (let el of arr) {
     const div = document.createElement("div");
@@ -21,6 +33,44 @@ function showDrinksOnUI(arr) {
     container.appendChild(div);
     div.appendChild(drinkName);
     div.appendChild(img);
+
+    div.addEventListener('click', () => {
+
+      const closedBtn  = document.createElement('button');
+      closedBtn.innerHTML = '&times';
+      closedBtn.classList.add('closedBtn');
+      modalContent.appendChild(closedBtn);
+  
+      closedBtn.addEventListener('click', () => {
+        clearModal();
+        modal.classList.remove('show-modal');
+      })
+  
+      const infoList = document.createElement('ul');
+  
+      const drinkName = div.getElementsByTagName('h3')[0].innerText;
+  
+      const drinkInfo = drinksData.filter(el => el.strDrink === drinkName)
+  
+  
+      const nameDrink = document.createElement('li');
+      nameDrink.innerHTML = 'Drink is ' + drinkInfo[0].strDrink;
+  
+      infoList.appendChild(nameDrink);
+  
+      const alcoholType = document.createElement('li');
+      alcoholType.innerHTML = 'Alcohol is ' + drinkInfo[0].strIngredient1;
+      infoList.appendChild(alcoholType);
+  
+      const instruction = document.createElement('li');
+      instruction.innerHTML = 'Instructions: ' + drinkInfo[0].strInstructions;
+      infoList.appendChild(instruction);
+  
+      modalContent.appendChild(infoList);
+  
+      modal.classList.add('show-modal');
+  
+    })
   }
 }
 
@@ -56,6 +106,68 @@ function clickEvent() {
 }
 
 showDrinksOnUI(drinksData);
+
+// MODAL window
+
+// const allDivs = document.querySelectorAll('.drink-card');
+
+// const modal = document.querySelector('.modal-container');
+
+// const modalContent = document.querySelector('.modal-container .content');
+
+// function clearModal() {
+//   while( modalContent.lastChild) {
+//     modalContent.removeChild(modalContent.lastChild)
+//   }
+// }
+
+// allDivs.forEach(el => {
+//   el.addEventListener('click', () => {
+
+//     const closedBtn  = document.createElement('button');
+//     closedBtn.innerHTML = '&times';
+//     closedBtn.classList.add('closedBtn');
+//     modalContent.appendChild(closedBtn);
+
+//     closedBtn.addEventListener('click', () => {
+//       clearModal();
+//       modal.classList.remove('show-modal');
+//     })
+
+//     const infoList = document.createElement('ul');
+
+//     const drinkName = el.getElementsByTagName('h3')[0].innerText;
+
+//     const drinkInfo = drinksData.filter(el => el.strDrink === drinkName)
+
+
+//     const nameDrink = document.createElement('li');
+//     nameDrink.innerHTML = 'Drink is ' + drinkInfo[0].strDrink;
+
+//     infoList.appendChild(nameDrink);
+
+//     const alcoholType = document.createElement('li');
+//     alcoholType.innerHTML = 'Alcohol is ' + drinkInfo[0].strIngredient1;
+//     infoList.appendChild(alcoholType);
+
+//     const instruction = document.createElement('li');
+//     instruction.innerHTML = 'Instructions: ' + drinkInfo[0].strInstructions;
+//     infoList.appendChild(instruction);
+
+//     modalContent.appendChild(infoList);
+
+//     modal.classList.add('show-modal');
+
+
+//     // console.log(drinkInfo);
+
+//     // const modalContainer = document.querySelector('.modal-container');
+    
+//     // const modalContent = document.querySelector('.model-container .content');
+
+//     // const.
+//   })
+// });
 
 input.addEventListener("keyup", clickEvent);
 
@@ -163,32 +275,19 @@ clearBtn.addEventListener('click', () => {
 })
 
 
-// const allDivs = document.querySelectorAll('.drink-card');
-
-// allDivs.forEach(el => {
-//   el.addEventListener('click', () => {
-//     const container = document.querySelector('.bodyContainer');
-//     container.classList.add('modal-container');
-
-//     // creating modal window
-//     const modal = document.createElement('div');
-//     modal.classList.add('modal');
-//     container.appendChild(modal);
-
-//     // creating close button
-//     const closeBtn = document.createElement('button');
-//     closeBtn.classList.add('closedBtn');
-//     closeBtn.innerHTML = 'close';
-//     modal.appendChild(closeBtn);
-
-//     closeBtn.addEventListener('click', () => {
-//       container.classList.remove('modal-container');
-//       modal.classList.remove('modal');
-
-//     })
+// Create a class of triggers, then add an event, then create a modal of the specifc card, then add a class of 'show-modal', then add an eventListener, and add an event listener to the close button
 
 
-    
 
-//   })
+
+
+// const closedBtn  = document.getElementsByClassName('closedBtn');
+// closedBtn[0].addEventListener('click', () => {
+//   clearModal();
+//   modal.classList.remove('show-modal');
 // })
+
+// const drink =drinksData.filter(el => el.strDrink === 'A1');
+// console.log(drink[0]);
+
+// console.log(drinksData.filter(el => el.strDrink==='A1')[0])
